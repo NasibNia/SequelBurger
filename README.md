@@ -31,7 +31,7 @@ On the serve side application has a modular arcitecture; here is a quick snapsho
 
 # Link to deployed site
 
-YRBURGER is YOUR BURGER!(https://yrburger.herokuapp.com/)
+SEQUEL YOUR BURGER!(https://sequelyrburger.herokuapp.com/)
 <!-- make a link to the deployed site --> 
 <!-- [What the user will see](the link to the deployed site) -->
 
