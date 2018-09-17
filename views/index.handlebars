@@ -1,0 +1,77 @@
+
+<div class='container'>
+    <div class="jumbotron">
+        <h1 class="display-2 title bouncing">WeLCOME TO YOUR BURGER!</h1>
+        
+        <div id="burger_gif"> <img src="https://media.giphy.com/media/WBTUlyKBVlTTa/giphy.gif"></div>
+
+        <hr>
+        <p class="lead bouncing text-center">Order Any Burger You Want!</p>
+    </div>
+</div>
+
+<div id="parallax">
+<div id="all-burgers-div">
+    
+
+
+<hr>
+
+
+<div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
+            <h3 class="uk-card-title"></h3>
+            <div id="all-burgers-div">
+            <ul>
+            <h1>All Devoured Bergures</h1>
+                {{#each allBurgers}}        
+                    {{#if dataValues.devoured}}
+                        {{> burgers/burger-block devour=false }}
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+
+    <div>
+        <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+            <h3 class="uk-card-title"></h3>
+            <ul>
+            <h1>NOT Devoured Bergures</h1>
+                {{#each allBurgers}}       
+                    {{#unless dataValues.devoured}}
+                        {{> burgers/burger-block devour=true}}
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+            <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
+                <form class="create-form form-primary">
+                <div class="form-group">
+                    <label for="burger_name">Enter Burger Name:</label>
+                    <input type="text" id="burger_name" name="burger_name">
+                </div>
+                <div class="form-group">
+                    <label for="divoured">Devoured?</label><br>
+                    <input type="radio" name="divoured" value="1" checked> Divoured!<br>
+                    <input type="radio" name="divoured" value="0"> Hmm; Not Divoured!
+                </div>
+                <button type="submit" id="addNewBurg">Add this burger</button>
+                </form>
+                </div>
+            </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</div>

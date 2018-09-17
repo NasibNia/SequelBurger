@@ -1,0 +1,30 @@
+{
+  "name": "sequelburger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mysql2": "^1.6.1",
+    "path": "^0.12.7",
+    "raw-body": "^2.3.3",
+    "sequelize": "^4.38.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NasibNia/SequelBurger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NasibNia/SequelBurger/issues"
+  },
+  "homepage": "https://github.com/NasibNia/SequelBurger#readme"
+}
