@@ -8,11 +8,6 @@ module.exports = function(app) {
 
 app.get("/" , function(req,res){
     db.Burgers.findAll({}).then(function(data){
-        console.log("you idiot" , data);
-        for (var i = 0; i < data.length; i++) {
-            console.log("=====| ", data[i].dataValues , "==\n")
-            
-        }
         res.render("index" , {allBurgers : data});
     });
 

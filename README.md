@@ -5,38 +5,12 @@
 <!-- the # means h1  -->
 
 <!-- Put a description of what the project is -->
-
 Hello Full Stack! I'm here!
 
-This fun project is my first full stack app, holding together the pieces of client side and the server! It is a burger application which lets the customers get and update the information about the burgers already made by the restuerant, as well as requesting a toatlly new burger in the menu. The application is connected to mysql and reads and stores data in real time. Every time the customer lands on the main page, they would be able to see the list of items already on menu, upon adding a new item, it would pop up on the menu and will be saved in the databas. 
-
-On the serve side application has a modular arcitecture; here is a quick snapshot of different modules used to enable the server to sync with the the front end and respond to the requests in a proper way:
-
-* Config:
-    * * include connection module that makes the connection to mysql database through proper channels depending whether the app is running as a deployed app or locally on the machine. 
-    * * Orm file create and exports the orm object which is the main heart of the connection queries to the database, it has different functions which will be called on later on when the data is requested by client; whether it is requesting all data or updating an already existing one or adding a new one to the data base; the query to database happens in the functions built in the orm object. each function has a callback function passed to it as an argument to save in the information. This will enable that us to run some callback functions only after the query is completed and data got back.
-* models:
-    * * include the controller module which sits between the routers and ORM queries functions and uses orm functions to does the query for a specific category of model which in this case is only burgers. This controllers could contain different files defining the behavior of different objects all through the same orm set up.
-    Similar to orm functions; each function inside the model has a callback function passed in as argument to be executed after the query results are back.
-* Controllers:
-    * * controllers is where the routs to different queries are defined. After getting the request form the client side, the servers looks into appropriate route set up in this controller file, then it calls on the appropriate function in the model module (burger.js) here which itself calls on appropriate function defined in orm. Data gets back from the orm and be passed to the model function which itself passed the results to the controlles fucntion. Meanign server gets the data relted to the initial request that client made. Then depends on what is the request the data will be used accordingly.
-* db
-    * * Contains the schema and seeds file regarding our data base
-* PUblic
-    * * Contains the files related to the client side that could be seen as publicly as well, including the images, css and the client side javascripts, which are essentially javascript command related to html on-click events or making ajax calls to the api routes.
-* views:
-    * * contains the handlebars:
-    Handle bars are an intresting way of making html templates. These templates will be used in the controller rout maker to render the data to the fron end. 
-    
-
-# Link to deployed site
-
-SEQUEL YOUR BURGER!(https://sequelyrburger.herokuapp.com/)
+### SEQUEL YOUR BURGER!(https://sequelyrburger.herokuapp.com/)
 <!-- make a link to the deployed site --> 
 <!-- [What the user will see](the link to the deployed site) -->
 
-
-This program is not deployed and is run on the console.
 
 
 # Images
@@ -44,6 +18,28 @@ This program is not deployed and is run on the console.
 <!-- ![image title](path or link to image) -->
 ![burger](https://media.giphy.com/media/WBTUlyKBVlTTa/giphy.gif)
 <!-- ![[burger](./public/assets/img/YRBURGER.gif) -->
+
+This fun project is the following sister of previous burger shop project in which connections to mysql database was made through connection.js and ORM.js callbacks.
+The difference here, however, is the use of neat package "Sequelize" which essentially is an ORM and provides a set of powerful libraries to query through the data without defining tens of callback functions.
+
+A big portion of previouse project remains unchanged while couple of necessary twicks are needed to adjust the use of sequellize.
+
+* Config:
+
+    * * Using only one config.Json package instead of connection.js and orm.js
+* models:
+    * * When using sequelize, tables will be defined in the models folder. 
+* Controllers or routs:
+    * * will still contain the backend routes and the server resonse plans.
+* db
+    * * Contains the schema and seeds file regarding our data base
+* PUblic
+    * * remains the same
+* views:
+    * * remains the same with the very minor change to access the data by using "dataValue" to access the keys in the array of data objects
+    
+
+
 
 # technology used
 <!-- make a list of technology used -->
@@ -57,7 +53,9 @@ This program is not deployed and is run on the console.
 ⋅⋅1. Ordered sub-list
 4. And another item. 
 -->
-
+- Sequelize
+- Deployment on Heroku
+- mysql
 - Making a server 
 - javascript
 - node.js
@@ -76,52 +74,26 @@ This program is not deployed and is run on the console.
 <!-- put snippets of code inside ``` ``` so it will look like code -->
 <!-- if you want to put blockquotes use a > -->
 
-This block of the code shows the orm object that has three functions to make the query to the database; each function has a specific query string depending on the type of data we need to get back from the mysql data base.
-As mentioned above each function has a callback function passed into it. This is a way of assuring that we will have access to the query results outside of these functions.
+The code shows how the table Burger is defined, It also shows the validation options that we can define for the input fields
 ```
-var orm = {
-    selectAll : function(table , callback){
-        var queryString = "SELECT * FROM " + table + ";";
-        connection.query( queryString, function(err, data){
-            if (err){
-                console.log("error in selecting from database");
-                throw err;
+module.exports = function(sequelize, DataTypes) {
+    var Burgers = sequelize.define("Burgers", {
+        burger_name : {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1, 140]
             }
-            callback(data);
-        });
+        },
+        devoured : DataTypes.BOOLEAN
 
-    },
-    insertOne : function(table, newInput ,callback){
-        var toArray = colsVals(newInput);
-        var cols = toArray[0];
-        var vals = toArray[1];
-        var queryString = "INSERT INTO "+ table + cols + " VALUES "+ vals;
-        connection.query(queryString , function(err,data){
-            if (err){
-                console.log("error in selecting from database");
-                throw err;
-            }
-            callback(data);
+        
+    }, {
+        timestamps: false
+    });
 
-        });
+    return Burgers;
 
-    }, 
-    updateOne : function(table, objColVals, condition, callback) {
-        var queryString = "UPDATE " + table;   
-        queryString += " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE ";
-        queryString += condition;
-    
-        console.log(queryString);
-        connection.query(queryString, function(err, result) {
-          if (err) {
-            throw err;
-          }
-    
-          callback(result);
-        });
-      },
 };
 ```
 
@@ -149,57 +121,58 @@ var burger = {
 
 };
 ```
-The following three code snippets belong to controllers: where different routes are beign made in the server side and the associated response to each is defined:
+There would be small changes in the api-routes. js file to access and manipulating data through sequel; 
 
-* * * function "get" for the route "/" : which essentially gets all the data of our burger database and render the results in the index handlebars by passing data as the value of a bew object with the key "allBurgers"
+* * * function "get" for the route "/" : uses "db.Burgers.findAll({})" to get all the data
 ```
+module.exports = function(app) {
 //get all the burgers
-router.get("/" , function(req,res){
-    burger.selectAll(function(data){
-        console.log("idiot" ,data);
+
+app.get("/" , function(req,res){
+    db.Burgers.findAll({}).then(function(data){
         res.render("index" , {allBurgers : data});
     });
 
 });
 ```
-* * * function "post" that adds the new burger to the list
+* * * function "post" uses "db.Burgers.create({...})" to adds the new burger to the list of currently available ones
 ```
 //insert a new burger
-router.post("/api/burgers/" , function(req,res){
+app.post("/api/burgers/" , function(req,res){
 
-    burger.insertOne({
+    db.Burgers.create({
         burger_name : req.body.burger_name,
         devoured    :  req.body.devoured
-    }, function(data){
+    }).then(function(data){
         // sends back the id of new inserted object into data base
-        res.json({id : data.insertId});
+        res.redirect("/");
     });  
 });
 ```
-* * * function "put" to update the current data on the page
+* * * function "put" uses "db.Burgers.update({...})" to update the current data on the page
 ```
 
 //update a new burger
-router.put("/api/burgers/:id", function(req,res){
+app.put("/api/burgers/:id", function(req,res){
 
-    var id = req.params.id;
-    
-    var condition = "id="+id;
-
-    burger.updateOne({
+    db.Burgers.update({
         devoured    : req.body.devoured
-        }, condition , function(data){
+        }, {
+            where : {
+                id : req.params.id
+            }
+        }).then(function(data){
             if (data.changedRows === 0) {
                 // If no rows were changed, then the ID must not exist, so 404
-                console.log("nothing changed")
+                console.log("nothing changed");
                 // return res.status(404).end();
               } else {
                 res.status(200).end();
               }
         }
     );
-
 });
+
 ```
 # Learning points
 <!-- Learning points where you would write what you thought was helpful -->
