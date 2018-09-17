@@ -26,17 +26,17 @@ A big portion of previouse project remains unchanged while couple of necessary t
 
 * Config:
 
-    * * Using only one config.Json package instead of connection.js and orm.js
+    * Using only one config.Json package instead of connection.js and orm.js
 * models:
-    * * When using sequelize, tables will be defined in the models folder. 
+    * When using sequelize, tables will be defined in the models folder. 
 * Controllers or routs:
-    * * will still contain the backend routes and the server resonse plans.
+    * will still contain the backend routes and the server resonse plans.
 * db
-    * * Contains the schema and seeds file regarding our data base
+    * Contains the schema and seeds file regarding our data base
 * PUblic
-    * * remains the same
+    * remains the same
 * views:
-    * * remains the same with the very minor change to access the data by using "dataValue" to access the keys in the array of data objects
+    * remains the same with the very minor change to access the data by using "dataValue" to access the keys in the array of data objects
     
 
 
@@ -123,7 +123,7 @@ var burger = {
 ```
 There would be small changes in the api-routes. js file to access and manipulating data through sequel; 
 
-* * * function "get" for the route "/" : uses "db.Burgers.findAll({})" to get all the data
+*  function "get" for the route "/" : uses "db.Burgers.findAll({})" to get all the data
 ```
 module.exports = function(app) {
 //get all the burgers
@@ -135,7 +135,7 @@ app.get("/" , function(req,res){
 
 });
 ```
-* * * function "post" uses "db.Burgers.create({...})" to adds the new burger to the list of currently available ones
+*  function "post" uses "db.Burgers.create({...})" to adds the new burger to the list of currently available ones
 ```
 //insert a new burger
 app.post("/api/burgers/" , function(req,res){
@@ -149,7 +149,7 @@ app.post("/api/burgers/" , function(req,res){
     });  
 });
 ```
-* * * function "put" uses "db.Burgers.update({...})" to update the current data on the page
+*  function "put" uses "db.Burgers.update({...})" to update the current data on the page
 ```
 
 //update a new burger
